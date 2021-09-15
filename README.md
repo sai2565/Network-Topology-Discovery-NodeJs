@@ -1,2 +1,7 @@
 # Network-Topology-Discovery-NodeJs
-Depth first traversal algorithm implementation for network topology discovery using TCP protocol in Node Js
+
+a. Implementation of network topology discovery algorithm using TCP protocol in Node Js
+
+b. The configuremachine.js file has the code that sets ups a server with specified configuration info that can be read from an external configuration file.
+
+c. scanNetwork function is used to trigger a network scanning for discovering all the machines connedted on to the network 

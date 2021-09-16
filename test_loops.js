@@ -17,4 +17,18 @@ const N = configureMachine({ "name": "N", "ip": "9013", "neighbours": [9012, 901
 const O = configureMachine({ "name": "O", "ip": "9014", "neighbours": [9000, 9013] });
 //scan network function would be triggered by different machines simultaneously
 //here i am triggering for a random machine
+A.scanNetwork();
+B.scanNetwork();
+C.scanNetwork();
+D.scanNetwork();
+E.scanNetwork();
+F.scanNetwork();
+G.scanNetwork();
+H.scanNetwork();
+I.scanNetwork();
+J.scanNetwork();
+K.scanNetwork();
+L.scanNetwork();
+M.scanNetwork();
+N.scanNetwork();
 O.scanNetwork();

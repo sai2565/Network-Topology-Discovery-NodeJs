@@ -7,12 +7,13 @@ function configureMachine(configInfo){
     let neighbours = configInfo.neighbours;
     let discovrdNeibrs = [];
     let discvrdNibrsInfo = [];
+    let neighboursExplored = false;
 
     discovrdNeibrs.push(ip);
     discvrdNibrsInfo.push(configInfo);
 
     server.listen(configInfo.ip, () => {
-        // console.log(`Machine ${name} is listening on port ${ip}`)
+        console.log(`Machine ${name} is listening on port ${ip}`)
     });
 
     server.on('connection', function (socket) {
@@ -22,8 +23,15 @@ function configureMachine(configInfo){
         let curNeibrScanned = 0;
 
         socket.on('data', function(data){
-            alrdyDiscvrdNeibrs = data+","+ip;
-            scnRemNtwrk();
+            if(neighboursExplored){
+                socket.write(JSON.stringify(discvrdNibrsInfo));
+                socket.destroy();
+            }
+            else{
+                alrdyDiscvrdNeibrs = data+","+ip;
+                scnRemNtwrk();
+            }
+            
         });
 
         async function scnRemNtwrk(){
@@ -34,12 +42,15 @@ function configureMachine(configInfo){
                             port: neighbours[curNeibrScanned], //to be replaced with portno 443 for remote tcp connection
                             host: "localhost", //to be replaced with remote host 
                             onread: {
-                                buffer: Buffer.alloc(16 * 1024),
+                                buffer: Buffer.alloc(64 * 1024),
                                 callback: function(nread, data){
-                                    discvrdNibrsInfo = [...discvrdNibrsInfo, ...JSON.parse(data.toString('utf8', 0, nread))];
+                                    // discvrdNibrsInfo = [...discvrdNibrsInfo, ...JSON.parse(data.toString('utf8', 0, nread))];
                                     JSON.parse(data.toString('utf8', 0, nread)).forEach((neibr) => {
-                                        discovrdNeibrs.push(neibr.ip);
-                                        alrdyDiscvrdNeibrs += "," + neibr.ip;
+                                        if(!discovrdNeibrs.includes(neibr.ip)){
+                                            discovrdNeibrs.push(neibr.ip);
+                                            alrdyDiscvrdNeibrs += "," + neibr.ip;
+                                            discvrdNibrsInfo.push(neibr);
+                                        }
                                     });
                                     curNeibrScanned++;
                                     resolve(200);
@@ -52,6 +63,9 @@ function configureMachine(configInfo){
                     netwrkScnnr.then(() => {
                         scnRemNtwrk();
                     });
+                    netwrkScnnr.catch((err) => {
+                        console.error("Error occurred while scanning", err.message);
+                    });
                 }else{
                     curNeibrScanned++;
                     scnRemNtwrk();
@@ -59,17 +73,12 @@ function configureMachine(configInfo){
             }else{
                 socket.write(JSON.stringify(discvrdNibrsInfo));
                 socket.destroy();
-                discovrdNeibrs = [];
-                discvrdNibrsInfo = [];
-                discovrdNeibrs.push(ip);
-                discvrdNibrsInfo.push(configInfo);
-
             }
         }
     }); 
 
     server.scanNetwork = async function (){
-        console.time();
+        console.time(`${name}`);
         const totNeibrs = neighbours.length;
         let curNeibrScnd = 0;
         setTimeout(() => {
@@ -79,11 +88,14 @@ function configureMachine(configInfo){
                         port: neighbours[curNeibrScnd], //to be replaced with portno 443 for remote tcp connection 
                         host: "localhost", //to be replaced with remote host
                         onread: {
-                            buffer: Buffer.alloc(16 * 1024),
+                            buffer: Buffer.alloc(64 * 1024),
                             callback: function(nread, data){
-                                discvrdNibrsInfo = [...discvrdNibrsInfo, ...JSON.parse(data.toString('utf8', 0, nread))];
+                                // discvrdNibrsInfo = [...discvrdNibrsInfo, ...JSON.parse(data.toString('utf8', 0, nread))];
                                 JSON.parse(data.toString('utf8', 0, nread)).forEach((neibr) => {
-                                    discovrdNeibrs.push(neibr.ip);
+                                    if(!discovrdNeibrs.includes(neibr.ip)){
+                                        discovrdNeibrs.push(neibr.ip);
+                                        discvrdNibrsInfo.push(neibr);
+                                    }
                                 });
                                 curNeibrScnd ++;
                                 resolve(200);
@@ -101,6 +113,9 @@ function configureMachine(configInfo){
                         sortAndPrintTopology(discvrdNibrsInfo);
                     }
                 });
+                ntwrkScnr.catch((err) => {
+                    console.error("Error occurred while scanning", err.message);
+                });
             }
             if(curNeibrScnd < totNeibrs){
                 networkScanner();
@@ -112,8 +127,10 @@ function configureMachine(configInfo){
     }
     
     function sortAndPrintTopology(networkInfo){
+        neighboursExplored = true;
 
         console.log(`There are ${networkInfo.length} machines in this topology. The following are the machines and their neighbors discovered from machine ${name}:`);
+        
         networkInfo.sort((m1, m2) => {
             if(m1.name < m2.name){
                 return -1;
@@ -125,13 +142,16 @@ function configureMachine(configInfo){
                 return 0;
             }
         });
+        
         networkInfo.forEach((m) => {
             let nibrsNams = [];
 
             m.neighbours.forEach((nibr) => {
                 let fm = networkInfo.filter(mac => mac.ip == nibr);
-                // console.log(fm[0].name);
-                nibrsNams.push(fm[0].name); 
+                // console.log(fm);
+                if(fm.length>0){
+                    nibrsNams.push(fm[0].name);
+                }
             });
 
             nibrsNams.sort((n1, n2) => {
@@ -147,8 +167,9 @@ function configureMachine(configInfo){
             });
             console.log(`${m.name}: [${nibrsNams}]`);
         })
-        console.log(`Total time taken for discovery for machine ${name}:`);
-        console.timeEnd();
+        console.log(`Total time taken for discovery for machine`);
+        console.timeEnd(`${name}`)
+
         discovrdNeibrs = [];
         discvrdNibrsInfo = [];
         discovrdNeibrs.push(ip);

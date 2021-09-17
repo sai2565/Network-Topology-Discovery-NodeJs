@@ -1,6 +1,6 @@
 import fs from 'fs';
 import readline from 'readline';
-import { configureMachine } from './configuremachine.js';
+import { configureMachine } from '../configuremachine.js';
 
 var lineReader = readline.createInterface({
     input: fs.createReadStream('./input.txt')

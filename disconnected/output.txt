@@ -1,0 +1,148 @@
+There are 5 machines in this topology. The following are the machines and their neighbors discovered from machine D:
+A: [B]
+B: [A,C]
+C: [B,D]
+D: [C,E]
+E: [A,D]
+Total time taken for discovery for machine
+D: 125.024ms
+There are 5 machines in this topology. The following are the machines and their neighbors discovered from machine B:
+A: [B]
+B: [A,C]
+C: [B,D]
+D: [C,E]
+E: [A,D]
+Total time taken for discovery for machine
+B: 127.506ms
+There are 5 machines in this topology. The following are the machines and their neighbors discovered from machine A:
+A: [B]
+B: [A,C]
+C: [B,D]
+D: [C,E]
+E: [A,D]
+Total time taken for discovery for machine
+A: 131.529ms
+There are 5 machines in this topology. The following are the machines and their neighbors discovered from machine C:
+A: [B]
+B: [A,C]
+C: [B,D]
+D: [C,E]
+E: [A,D]
+Total time taken for discovery for machine
+C: 137.236ms
+There are 5 machines in this topology. The following are the machines and their neighbors discovered from machine E:
+A: [B]
+B: [A,C]
+C: [B,D]
+D: [C,E]
+E: [A,D]
+Total time taken for discovery for machine
+E: 154.514ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine J:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+J: 197.774ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine L:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+L: 204.606ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine I:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+I: 208.943ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine F:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+F: 212.909ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine N:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+N: 216.636ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine M:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+M: 221.235ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine K:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+K: 224.513ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine H:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+H: 228.191ms
+There are 9 machines in this topology. The following are the machines and their neighbors discovered from machine G:
+F: [G]
+G: [F,H]
+H: [G,I]
+I: [H,J]
+J: [I,K]
+K: [J,L]
+L: [K,M]
+M: [L,N]
+N: [M]
+Total time taken for discovery for machine
+G: 232.041ms

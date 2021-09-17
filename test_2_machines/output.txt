@@ -1,0 +1,10 @@
+There are 2 machines in this topology. The following are the machines and their neighbors discovered from machine A:
+A: [B]
+B: [A]
+Total time taken for discovery for machine
+A: 31.861ms
+There are 2 machines in this topology. The following are the machines and their neighbors discovered from machine B:
+A: [B]
+B: [A]
+Total time taken for discovery for machine
+B: 32.585ms
